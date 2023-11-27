@@ -1,6 +1,6 @@
-use crate::prelude::*; 
-/// An attribute can have one of the 
-/// following two structures: 
+use crate::prelude::*;
+/// An attribute can have one of the
+/// following two structures:
 /// * `ident=value`
 /// * `"custom-attr"="string-lit"
 pub struct Attribute {
@@ -36,12 +36,7 @@ impl ToTokens for Attribute {
 impl Attribute {
     fn validate(&self) -> Result<()> {
         if !self.name.is_ident() && !self.value.is_str() {
-            return Err(
-                Error::new(
-                    self.value.span(),
-                "expected a string literal."
-            )
-        );
+            return Err(Error::new(self.value.span(), "expected a string literal."));
         }
         Ok(())
     }

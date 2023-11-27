@@ -1,9 +1,9 @@
-use proc_macro2::Span;
-use syn::{token::Brace, spanned::Spanned};
 use crate::prelude::*;
+use proc_macro2::Span;
+use syn::{spanned::Spanned, token::Brace};
 
-/// An RSX expression can either be a string literal, 
-/// or any rust expression inside curly braces. 
+/// An RSX expression can either be a string literal,
+/// or any rust expression inside curly braces.
 pub enum RsxExpr {
     LitStr(LitStr),
     Expr { brace: Brace, expr: Expr },

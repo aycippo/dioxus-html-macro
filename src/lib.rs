@@ -35,8 +35,6 @@ use proc_macro::TokenStream;
 
 mod assertions;
 mod attribute;
-mod attribute_ident;
-mod attributes;
 mod element;
 mod html;
 mod html_non_recursive;

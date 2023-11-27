@@ -1,6 +1,6 @@
-use crate::close_tag::CloseTag;
 use crate::element::closing;
 use crate::prelude::*;
+use crate::tag::CloseTag;
 
 /// This struct is used to make sure there are no trailing
 /// closing html tags. Without this, the error message for

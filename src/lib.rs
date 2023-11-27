@@ -37,14 +37,13 @@ mod assertions;
 mod attribute;
 mod attribute_ident;
 mod attributes;
-mod close_tag;
 mod element;
 mod html;
 mod html_non_recursive;
 mod item;
-mod open_tag;
 mod prelude;
 mod rsx_expr;
+mod tag;
 
 /// macro for generating components using HTML syntax instead of rsx.
 #[proc_macro]

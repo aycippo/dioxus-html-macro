@@ -19,7 +19,9 @@ impl Parse for Attribute {
             equals,
             value,
         };
+
         attr.validate()?;
+
         Ok(attr)
     }
 }
@@ -27,6 +29,7 @@ impl Parse for Attribute {
 impl ToTokens for Attribute {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let Attribute { name, value, .. } = self;
+
         tokens.extend(quote! {
             #name: #value
         });
@@ -38,6 +41,7 @@ impl Attribute {
         if !self.name.is_ident() && !self.value.is_str() {
             return Err(Error::new(self.value.span(), "expected a string literal."));
         }
+
         Ok(())
     }
 }

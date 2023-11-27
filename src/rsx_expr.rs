@@ -22,6 +22,7 @@ impl Parse for RsxExpr {
                 }
             }
         };
+
         Ok(expr)
     }
 }
@@ -42,6 +43,7 @@ impl RsxExpr {
             RsxExpr::LitStr(lit) => lit.span(),
         }
     }
+
     pub fn is_str(&self) -> bool {
         matches!(self, RsxExpr::LitStr(_))
     }

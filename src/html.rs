@@ -9,6 +9,7 @@ pub struct Html {
 impl Parse for Html {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
         let mut elements = vec![];
+
         while !input.is_empty() && !input.peek2(Token![/]) {
             elements.push(input.parse()?);
         }

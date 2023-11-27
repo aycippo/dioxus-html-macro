@@ -5,6 +5,7 @@ pub struct Attributes(Vec<Attribute>);
 impl Parse for Attributes {
     fn parse(input: ParseStream) -> Result<Self> {
         let mut attrs = vec![];
+
         loop {
             if input.peek(Token![/]) || input.peek(Token![>]) {
                 break Ok(Attributes(attrs));
@@ -18,6 +19,7 @@ impl Parse for Attributes {
 impl ToTokens for Attributes {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         let Attributes(attributes) = self;
+
         tokens.extend(quote! {#(#attributes,)*})
     }
 }

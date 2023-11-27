@@ -14,6 +14,7 @@ impl Parse for Element {
         let open_tag: OpenTag = input.parse().map_err(|err| unmatched_msg(err, &&fork))?;
         let mut html = Default::default();
         let mut close_tag = None;
+
         if open_tag.slash.is_none() {
             html = input.parse()?;
 
@@ -25,7 +26,6 @@ impl Parse for Element {
             html,
             close_tag,
         };
-
         element.validate()?;
 
         Ok(element)
@@ -51,6 +51,7 @@ impl ToTokens for Element {
 impl Element {
     fn validate(&self) -> Result<()> {
         let name = &self.open_tag.name;
+
         match &self.close_tag {
             Some(tag) if tag.name != *name => {
                 let error = opening(name);
@@ -63,6 +64,7 @@ impl Element {
 
 fn unmatched_msg(error: Error, fork: &ParseStream) -> Error {
     let backup = fork.fork();
+
     if let Ok(tag) = fork.parse::<CloseTag>() {
         closing(&tag.name)
     } else if let Ok(tag) = backup.parse::<Ident>() {

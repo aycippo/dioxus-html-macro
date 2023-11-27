@@ -12,6 +12,7 @@ impl Parse for HtmlNonRecursive {
     fn parse(input: ParseStream) -> Result<Self> {
         let html = input.parse()?;
         let _: AssertStreamIsEmpty = input.parse()?;
+
         Ok(HtmlNonRecursive { html })
     }
 }
@@ -19,6 +20,7 @@ impl Parse for HtmlNonRecursive {
 impl ToTokens for HtmlNonRecursive {
     fn to_tokens(&self, tokens: &mut proc_macro2::TokenStream) {
         let HtmlNonRecursive { html } = self;
+
         tokens.extend(if !html.elements.is_empty() {
             quote!(#html)
         } else {

@@ -49,6 +49,7 @@ mod tag;
 #[proc_macro]
 pub fn html(input: TokenStream) -> TokenStream {
     let html: HtmlNonRecursive = parse_macro_input!(input);
+
     quote! {
         dioxus::prelude::rsx! {
             #html
@@ -60,18 +61,20 @@ pub fn html(input: TokenStream) -> TokenStream {
 #[cfg(test)]
 #[test]
 fn trybuild() {
-    let t = trybuild::TestCases::new();
-    t.compile_fail("test/tag/trailing.rs");
-    t.compile_fail("test/tag/extra_close.rs");
-    t.compile_fail("test/tag/missing_close.rs");
+    let test_cases = trybuild::TestCases::new();
 
-    t.compile_fail("test/attribute/non_str_custom.rs");
-    t.compile_fail("test/attribute/format_str.rs");
-    t.compile_fail("test/attribute/missing_equals.rs");
-    t.compile_fail("test/attribute/random_expression.rs");
-    t.pass("test/attribute/passes.rs");
+    test_cases.compile_fail("test/attribute/non_str_custom.rs");
+    test_cases.compile_fail("test/attribute/format_str.rs");
+    test_cases.compile_fail("test/attribute/missing_equals.rs");
+    test_cases.compile_fail("test/attribute/random_expression.rs");
+    test_cases.pass("test/attribute/passes.rs");
 
-    t.compile_fail("test/body/plain_text.rs");
-    t.pass("test/body/expression.rs");
-    t.pass("test/props/enum.rs");
+    test_cases.compile_fail("test/body/plain_text.rs");
+    test_cases.pass("test/body/expression.rs");
+
+    test_cases.pass("test/props/enum.rs");
+
+    test_cases.compile_fail("test/tag/trailing.rs");
+    test_cases.compile_fail("test/tag/extra_close.rs");
+    test_cases.compile_fail("test/tag/missing_close.rs");
 }

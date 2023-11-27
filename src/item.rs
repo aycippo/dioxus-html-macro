@@ -15,6 +15,7 @@ impl Parse for Item {
     fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
         let lookahead1 = input.lookahead1();
         let expr = lookahead1.peek(Brace) || lookahead1.peek(LitStr);
+
         Ok(if expr {
             Expr(input.parse()?)
         } else {
